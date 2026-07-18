@@ -6,6 +6,7 @@ import { mediaUrl } from '@/lib/format'
 import { getCategories, getSiteSettings } from '@/lib/queries'
 import { MobileNav } from './MobileNav'
 import { SearchForm } from './SearchForm'
+import { ThemeToggle } from './ThemeToggle'
 
 export async function Header() {
   const [settings, categories] = await Promise.all([getSiteSettings(), getCategories()])
@@ -48,7 +49,7 @@ export async function Header() {
         <div className="ml-auto hidden md:block">
           <SearchForm compact />
         </div>
-
+        <ThemeToggle />
         <MobileNav items={navItems} siteName={siteName} />
       </div>
     </header>

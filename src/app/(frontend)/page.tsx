@@ -30,6 +30,7 @@ export default async function HomePage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
+      {hero && <h1 className="sr-only">Naslovnica</h1>}
       {hero ? (
         <section aria-label="Izpostavljeno" className="grid gap-8 md:grid-cols-3">
           <div className="md:col-span-2">

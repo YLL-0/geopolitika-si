@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 type NavItem = { label: string; href: string }
 
@@ -11,9 +11,11 @@ export function MobileNav({ items, siteName }: { items: NavItem[]; siteName: str
   const pathname = usePathname()
 
   // close the menu on navigation
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname)
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname)
     setOpen(false)
-  }, [pathname])
+  }
 
   return (
     <div className="md:hidden">

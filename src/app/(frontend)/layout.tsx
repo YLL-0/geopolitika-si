@@ -36,6 +36,14 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="sl" suppressHydrationWarning>
+      <head>
+        <script
+          // set .dark before paint to avoid a flash of the wrong theme
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="flex min-h-screen flex-col">
         {isDraft && (
           <div className="bg-accent-700 px-4 py-2 text-center text-sm font-semibold text-white">
