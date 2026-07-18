@@ -10,6 +10,8 @@ export const Pages: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', '_status'],
     group: 'Vsebina',
+    preview: (doc) =>
+      `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/next/preview?path=${encodeURIComponent(`/${doc?.slug}`)}`,
   },
   versions: {
     drafts: { autosave: { interval: 800 } },

@@ -12,6 +12,8 @@ export const Articles: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'author', '_status', 'publishedAt'],
     group: 'Vsebina',
+    preview: (doc) =>
+      `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/next/preview?path=${encodeURIComponent(`/article/${doc?.slug}`)}`,
   },
   versions: {
     drafts: { autosave: { interval: 800 } },

@@ -21,6 +21,7 @@
   "dependencies": {
     "@payloadcms/db-postgres": "3.86.0",
     "@payloadcms/next": "3.86.0",
+    "@payloadcms/plugin-search": "3.86.0",
     "@payloadcms/plugin-seo": "3.86.0",
     "@payloadcms/richtext-lexical": "3.86.0",
     "@payloadcms/storage-s3": "3.86.0",
@@ -41,6 +42,7 @@
     "@electric-sql/pglite": "0.5.4",
     "@electric-sql/pglite-socket": "0.2.7",
     "@playwright/test": "1.58.2",
+    "@tailwindcss/typography": "0.5.20",
     "@testing-library/react": "16.3.0",
     "@types/node": "22.19.9",
     "@types/react": "19.2.14",
@@ -58,12 +60,5 @@
   "engines": {
     "node": "^18.20.2 || >=20.9.0",
     "pnpm": "^9 || ^10 || ^11"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp",
-      "esbuild",
-      "unrs-resolver"
-    ]
   }
 }

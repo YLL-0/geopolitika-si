@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { searchPlugin } from '@payloadcms/plugin-search'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
@@ -16,6 +17,7 @@ import { Pages } from './collections/Pages'
 import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
 import { SiteSettings } from './globals/SiteSettings'
+import { lexicalToPlainText } from './lib/lexical'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -29,11 +31,28 @@ const s3Enabled = Boolean(
     process.env.S3_SECRET_ACCESS_KEY,
 )
 
+const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+
+const previewURL = (collection: 'articles' | 'pages', slug?: unknown): string => {
+  const path = collection === 'articles' ? `/article/${slug}` : `/${slug}`
+  return `${serverURL}/next/preview?path=${encodeURIComponent(path)}`
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
+    },
+    livePreview: {
+      collections: ['articles', 'pages'],
+      url: ({ data, collectionConfig }) =>
+        previewURL(collectionConfig?.slug === 'pages' ? 'pages' : 'articles', data?.slug),
+      breakpoints: [
+        { label: 'Mobilni', name: 'mobile', width: 390, height: 844 },
+        { label: 'Tablica', name: 'tablet', width: 768, height: 1024 },
+        { label: 'Namizje', name: 'desktop', width: 1440, height: 900 },
+      ],
     },
   },
   collections: [Articles, Categories, Tags, Media, Pages, Users],
@@ -62,6 +81,21 @@ export default buildConfig({
       tabbedUI: true,
       generateTitle: ({ doc }) => doc?.title ?? '',
       generateDescription: ({ doc }) => doc?.excerpt ?? '',
+    }),
+    searchPlugin({
+      collections: ['articles'],
+      searchOverrides: {
+        fields: ({ defaultFields }) => [
+          ...defaultFields,
+          { name: 'excerpt', type: 'textarea' },
+          { name: 'bodyText', type: 'textarea' },
+        ],
+      },
+      beforeSync: ({ originalDoc, searchDoc }) => ({
+        ...searchDoc,
+        excerpt: originalDoc?.excerpt ?? '',
+        bodyText: lexicalToPlainText(originalDoc?.body),
+      }),
     }),
     s3Storage({
       enabled: s3Enabled,
