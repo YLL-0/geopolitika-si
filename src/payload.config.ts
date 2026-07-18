@@ -1,5 +1,6 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { en } from '@payloadcms/translations/languages/en'
 import { sl } from '@payloadcms/translations/languages/sl'
@@ -18,6 +19,15 @@ import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+// Supabase Storage (S3-compatible). When the S3 vars are unset (local dev),
+// uploads fall back to local disk instead.
+const s3Enabled = Boolean(
+  process.env.S3_BUCKET &&
+    process.env.S3_ENDPOINT &&
+    process.env.S3_ACCESS_KEY_ID &&
+    process.env.S3_SECRET_ACCESS_KEY,
+)
 
 export default buildConfig({
   admin: {
@@ -52,6 +62,23 @@ export default buildConfig({
       tabbedUI: true,
       generateTitle: ({ doc }) => doc?.title ?? '',
       generateDescription: ({ doc }) => doc?.excerpt ?? '',
+    }),
+    s3Storage({
+      enabled: s3Enabled,
+      collections: {
+        media: { prefix: 'media' },
+      },
+      bucket: process.env.S3_BUCKET || '',
+      config: {
+        endpoint: process.env.S3_ENDPOINT,
+        region: process.env.S3_REGION || 'eu-central-1',
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+        },
+        // Supabase's S3 endpoint is path-style
+        forcePathStyle: true,
+      },
     }),
   ],
 })
