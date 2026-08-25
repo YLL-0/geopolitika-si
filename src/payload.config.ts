@@ -66,6 +66,11 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  upload: {
+    limits: {
+      fileSize: 25 * 1024 * 1024, // 25MB ceiling — covers the ~20MB upload target with headroom
+    },
+  },
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
@@ -99,6 +104,9 @@ export default buildConfig({
     }),
     s3Storage({
       enabled: s3Enabled,
+      // Upload directly from the browser to Supabase, bypassing the Next.js
+      // server body-size limits (notably Vercel's ~4.5MB serverless function cap).
+      clientUploads: true,
       collections: {
         media: { prefix: 'media' },
       },

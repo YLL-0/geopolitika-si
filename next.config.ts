@@ -9,6 +9,11 @@ const dirname = path.dirname(__filename)
 const nextConfig: NextConfig = {
   // required by the Dockerfile; ignored by Vercel
   output: 'standalone',
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '25mb',
+    },
+  },
   images: {
     localPatterns: [
       {
