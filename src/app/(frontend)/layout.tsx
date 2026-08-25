@@ -37,10 +37,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="sl" suppressHydrationWarning>
       <head>
-        <script
-          // set .dark before paint to avoid a flash of the wrong theme
+        <template
           dangerouslySetInnerHTML={{
-            __html: `try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}`,
+            __html: `<script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>`,
           }}
         />
       </head>

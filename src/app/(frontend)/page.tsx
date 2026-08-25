@@ -27,7 +27,6 @@ export default async function HomePage() {
       return { category, docs }
     }),
   )
-
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       {hero && <h1 className="sr-only">Naslovnica</h1>}
