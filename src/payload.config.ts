@@ -31,6 +31,19 @@ const s3Enabled = Boolean(
     process.env.S3_SECRET_ACCESS_KEY,
 )
 
+// Without S3 configured, uploads silently fall back to local disk — fine for local
+// dev, but on serverless hosting (Vercel) that disk isn't persistent, so uploads
+// would appear to save and then vanish. Fail loudly in production instead of
+// letting that happen silently.
+if (process.env.NODE_ENV === 'production' && !s3Enabled) {
+  throw new Error(
+    'Missing S3_* environment variables in production. Set S3_BUCKET, S3_ENDPOINT, ' +
+      'S3_REGION, S3_ACCESS_KEY_ID and S3_SECRET_ACCESS_KEY (see README "Environment ' +
+      'variables") — otherwise uploads fall back to local disk, which does not persist ' +
+      'on serverless hosting.',
+  )
+}
+
 const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
 const previewURL = (collection: 'articles' | 'pages', slug?: unknown): string => {
