@@ -23,6 +23,22 @@ export const Users: CollectionConfig = {
       return { id: { equals: req.user.id } }
     },
   },
+  hooks: {
+    beforeChange: [
+      // The very first user is created via Payload's "create first user" screen,
+      // which bypasses access control since no admin exists yet to authorize it.
+      // Without this, they'd get the 'role' field's default ('author') and no one
+      // could ever grant them admin — a permanent lockout.
+      async ({ operation, data, req }) => {
+        if (operation !== 'create') return data
+        const { totalDocs } = await req.payload.count({ collection: 'users' })
+        if (totalDocs === 0) {
+          data.role = 'admin'
+        }
+        return data
+      },
+    ],
+  },
   fields: [
     {
       name: 'name',
