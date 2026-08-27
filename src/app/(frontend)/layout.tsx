@@ -13,7 +13,7 @@ const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 export async function generateMetadata(): Promise<Metadata> {
   try {
     const settings = await getSiteSettings()
-    const siteName = settings.siteName || 'Geopolitika SI'
+    const siteName = settings.siteName || 'Informbiro'
     return {
       metadataBase: new URL(serverURL),
       title: {
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     }
   } catch {
-    return { metadataBase: new URL(serverURL), title: 'Geopolitika SI' }
+    return { metadataBase: new URL(serverURL), title: 'Informbiro' }
   }
 }
 

@@ -8,7 +8,7 @@ nadzorni plošči v brskalniku.
 
 ## 1. Prijava
 
-1. V brskalniku odprite naslov **`https://vasa-domena.si/admin`**
+1. V brskalniku odprite naslov **`https://informbiro.eu/admin`**
    (pri lokalnem razvoju `http://localhost:3000/admin`).
 2. Vpišite svoj e-poštni naslov in geslo ter kliknite **Prijava**.
 3. Odpre se nadzorna plošča s seznamom vsebin: **Članki, Kategorije, Oznake,

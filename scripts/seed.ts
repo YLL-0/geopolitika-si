@@ -308,11 +308,11 @@ async function seed(payload: Payload): Promise<void> {
   await payload.updateGlobal({
     slug: 'site-settings',
     data: {
-      siteName: 'Geopolitika SI',
+      siteName: 'Informbiro',
       tagline: 'Analize in novice iz sveta geopolitike',
       footerText: 'Neodvisni portal za geopolitične analize, novice in komentarje.',
       defaultMeta: {
-        title: 'Geopolitika SI — analize in novice iz sveta geopolitike',
+        title: 'Informbiro — analize in novice iz sveta geopolitike',
         description:
           'Poglobljene analize, aktualne novice, intervjuji in kolumne o mednarodni politiki in varnosti.',
       },

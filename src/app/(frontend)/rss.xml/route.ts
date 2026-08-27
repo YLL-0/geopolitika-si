@@ -18,7 +18,7 @@ export async function GET(): Promise<Response> {
     findArticles({ limit: 20 }),
   ])
 
-  const siteName = settings.siteName || 'Geopolitika SI'
+  const siteName = settings.siteName || 'Informbiro'
 
   const items = articles
     .map((a) => {

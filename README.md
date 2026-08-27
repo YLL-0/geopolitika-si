@@ -1,4 +1,4 @@
-# Geopolitika SI
+# Informbiro
 
 Novičarski/analitični portal z urejevalnim CMS-jem. Zgrajen z:
 
@@ -106,12 +106,12 @@ pnpm payload migrate          # run pending migrations (part of deploy)
 Requirements on the server: Node 20+, pnpm (`npm i -g pnpm`), git.
 
 ```bash
-git clone <your-repo> geopolitika && cd geopolitika
+git clone <your-repo> informbiro && cd informbiro
 cp .env.example .env && nano .env      # fill in production values
 pnpm install
 pnpm build
 npm i -g pm2
-pm2 start "pnpm start" --name geopolitika
+pm2 start "pnpm start" --name informbiro
 pm2 save && pm2 startup                # start on boot
 ```
 
@@ -122,7 +122,7 @@ domain **before** `pnpm build`.
 Updating:
 
 ```bash
-git pull && pnpm install && pnpm build && pm2 restart geopolitika
+git pull && pnpm install && pnpm build && pm2 restart informbiro
 ```
 
 #### VPS with Docker (alternative)
@@ -130,8 +130,8 @@ git pull && pnpm install && pnpm build && pm2 restart geopolitika
 A `Dockerfile` is included. Build and run with your `.env`:
 
 ```bash
-docker build -t geopolitika .
-docker run -d --env-file .env -p 3000:3000 --name geopolitika geopolitika
+docker build -t informbiro .
+docker run -d --env-file .env -p 3000:3000 --name informbiro informbiro
 ```
 
 ---

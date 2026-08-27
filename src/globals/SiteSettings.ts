@@ -16,7 +16,7 @@ export const SiteSettings: GlobalConfig = {
       type: 'text',
       label: 'Ime strani',
       required: true,
-      defaultValue: 'Geopolitika SI',
+      defaultValue: 'Informbiro',
     },
     {
       name: 'tagline',

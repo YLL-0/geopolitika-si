@@ -13,7 +13,7 @@ const platformLabels: Record<string, string> = {
 
 export async function Footer() {
   const [settings, pages] = await Promise.all([getSiteSettings(), getPublishedPages()])
-  const siteName = settings.siteName || 'Geopolitika SI'
+  const siteName = settings.siteName || 'Informbiro'
   const year = new Date().getFullYear()
 
   return (

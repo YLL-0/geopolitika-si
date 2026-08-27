@@ -11,7 +11,7 @@ import { ThemeToggle } from './ThemeToggle'
 export async function Header() {
   const [settings, categories] = await Promise.all([getSiteSettings(), getCategories()])
   const logoUrl = mediaUrl(settings.logo, 'thumbnail')
-  const siteName = settings.siteName || 'Geopolitika SI'
+  const siteName = settings.siteName || 'Informbiro'
 
   const navItems = categories.map((c) => ({
     label: c.name,
