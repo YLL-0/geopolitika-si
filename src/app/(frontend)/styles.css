@@ -1,26 +1,29 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-/* Dark mode is toggled by adding .dark on <html> (see ThemeToggle) */
+/* Kept for future dark-mode work — not applied anywhere today (light newsprint theme only). */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Editorial red/dark accent */
-  --color-accent-50: #fdf2f2;
-  --color-accent-100: #fbe3e3;
-  --color-accent-600: #b91c1c;
-  --color-accent-700: #991b1b;
-  --color-accent-800: #7f1d1d;
+  /* Restrained editorial red — used only for active/selected states and accents */
+  --color-accent-50: #fbf2f0;
+  --color-accent-100: #f3ddd8;
+  --color-accent-600: #9c2b1f;
+  --color-accent-700: #7f2419;
+  --color-accent-800: #631c13;
 
-  --color-ink-50: #f8f8f7;
-  --color-ink-100: #eeeeec;
-  --color-ink-200: #d9d9d6;
-  --color-ink-400: #8b8b86;
-  --color-ink-600: #55554f;
-  --color-ink-800: #262622;
-  --color-ink-900: #161613;
+  /* Newsprint scale: cream paper through near-black ink */
+  --color-paper: #f2ede1;
+  --color-ink-50: #ece5d4;
+  --color-ink-100: #ded4bd;
+  --color-ink-200: #c9bda0;
+  --color-ink-400: #8c8064;
+  --color-ink-600: #55503f;
+  --color-ink-800: #262218;
+  --color-ink-900: #17140d;
 
   --font-serif: Georgia, 'Times New Roman', Cambria, 'Noto Serif', serif;
+  --font-display: var(--font-display-family), Georgia, 'Times New Roman', serif;
   --font-sans:
     system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
     sans-serif;
@@ -31,10 +34,46 @@ html {
 }
 
 body {
-  @apply bg-white font-sans text-ink-900 antialiased dark:bg-ink-900 dark:text-ink-50;
+  @apply bg-paper font-sans text-ink-900 antialiased;
 }
 
 /* Article body typography */
 .article-body {
-  @apply prose prose-lg max-w-none font-serif dark:prose-invert prose-headings:font-sans prose-headings:font-bold prose-a:text-accent-700 prose-a:decoration-accent-600/40 hover:prose-a:decoration-accent-600 prose-img:rounded-sm dark:prose-a:text-accent-100;
+  @apply prose prose-lg max-w-none font-serif text-ink-900 prose-headings:font-display prose-headings:font-bold prose-headings:text-ink-900 prose-a:text-accent-700 prose-a:decoration-accent-600/40 hover:prose-a:decoration-accent-600 prose-img:rounded-none prose-strong:text-ink-900;
+  max-width: 700px;
+  margin-inline: auto;
+}
+
+/* Drop cap on the first paragraph of an article body — no float: a floated
+   first-letter can force many lines of severely narrow wrap around it. */
+.article-body > p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.2em;
+  color: var(--color-ink-900);
+}
+
+/* Drop cap for lead paragraphs (homepage hero excerpt) */
+.drop-cap::first-letter {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.6em;
+  color: var(--color-ink-900);
+}
+
+/* Thin newspaper rule lines */
+.rule-thin {
+  border-color: var(--color-ink-200);
+}
+
+.rule-thick {
+  border-color: var(--color-ink-900);
+}
+
+@media print {
+  header,
+  footer,
+  nav {
+    display: none !important;
+  }
 }

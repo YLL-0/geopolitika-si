@@ -16,18 +16,23 @@ export function Pagination({
 
   const href = (p: number) => `${basePath}?${extraQuery ? `${extraQuery}&` : ''}page=${p}`
   const linkClass =
-    'rounded-sm border border-ink-200 px-4 py-2 text-sm font-semibold hover:border-accent-600 hover:text-accent-700 dark:border-ink-600 dark:hover:text-accent-100'
+    'border border-ink-900 px-4 py-2 text-xs font-bold uppercase tracking-wide text-ink-900 hover:bg-ink-900 hover:text-paper'
 
   return (
-    <nav aria-label="Strani rezultatov" className="mt-10 flex items-center justify-center gap-4">
+    <nav
+      aria-label="Strani rezultatov"
+      className="mt-10 flex items-center justify-center gap-4 border-t border-ink-200 pt-6"
+    >
       {page > 1 ? (
         <Link href={href(page - 1)} className={linkClass} rel="prev">
           ← Novejše
         </Link>
       ) : (
-        <span aria-hidden="true" className="px-4 py-2 text-sm text-ink-200 dark:text-ink-600">← Novejše</span>
+        <span aria-hidden="true" className="px-4 py-2 text-xs uppercase tracking-wide text-ink-200">
+          ← Novejše
+        </span>
       )}
-      <span className="text-sm text-ink-600 dark:text-ink-200">
+      <span className="text-xs uppercase tracking-wide text-ink-600">
         Stran {page} od {totalPages}
       </span>
       {page < totalPages ? (
@@ -35,7 +40,9 @@ export function Pagination({
           Starejše →
         </Link>
       ) : (
-        <span aria-hidden="true" className="px-4 py-2 text-sm text-ink-200 dark:text-ink-600">Starejše →</span>
+        <span aria-hidden="true" className="px-4 py-2 text-xs uppercase tracking-wide text-ink-200">
+          Starejše →
+        </span>
       )}
     </nav>
   )

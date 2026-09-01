@@ -39,11 +39,11 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       <header className="mb-8 border-b-2 border-accent-700 pb-4">
-        <h1 className="text-3xl font-black uppercase tracking-wide">{category.name}</h1>
+        <h1 className="font-display text-3xl font-black uppercase tracking-wide text-ink-900">
+          {category.name}
+        </h1>
         {category.description && (
-          <p className="mt-2 max-w-2xl font-serif text-ink-600 dark:text-ink-200">
-            {category.description}
-          </p>
+          <p className="mt-2 max-w-2xl font-serif text-ink-600">{category.description}</p>
         )}
       </header>
 
@@ -54,7 +54,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           ))}
         </div>
       ) : (
-        <p className="text-ink-600 dark:text-ink-200">V tej rubriki še ni objavljenih člankov.</p>
+        <p className="text-ink-600">V tej rubriki še ni objavljenih člankov.</p>
       )}
 
       <Pagination page={page} totalPages={totalPages} basePath={`/category/${category.slug}`} />

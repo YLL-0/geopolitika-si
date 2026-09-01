@@ -29,13 +29,15 @@ export default async function SearchPage({ searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <header className="mb-8">
-        <h1 className="mb-4 text-3xl font-black tracking-tight">Iskanje</h1>
+      <header className="mb-8 border-b-2 border-ink-900 pb-4">
+        <h1 className="mb-4 font-display text-3xl font-black tracking-tight text-ink-900">
+          Iskanje
+        </h1>
         <SearchForm defaultValue={query} />
       </header>
 
       {query && (
-        <p className="mb-6 text-sm text-ink-600 dark:text-ink-200">
+        <p className="mb-6 text-sm text-ink-600">
           {results?.totalDocs
             ? `Najdenih ${results.totalDocs} zadetkov za »${query}«.`
             : `Za »${query}« ni zadetkov. Poskusite z drugimi ključnimi besedami.`}

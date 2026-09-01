@@ -28,7 +28,7 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
   }
 
   const buttonClass =
-    'rounded-sm border border-ink-200 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-ink-600 hover:border-accent-600 hover:text-accent-700 dark:border-ink-600 dark:text-ink-200 dark:hover:text-accent-100'
+    'border border-ink-900 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-ink-900 hover:bg-ink-900 hover:text-paper'
 
   return (
     <div className="flex flex-wrap items-center gap-2" aria-label="Deli članek">
@@ -40,6 +40,9 @@ export function ShareButtons({ url, title }: { url: string; title: string }) {
       ))}
       <button type="button" onClick={copy} className={buttonClass}>
         {copied ? 'Kopirano ✓' : 'Kopiraj povezavo'}
+      </button>
+      <button type="button" onClick={() => window.print()} className={buttonClass}>
+        Natisni
       </button>
     </div>
   )

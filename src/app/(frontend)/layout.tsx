@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
+import { Playfair_Display } from 'next/font/google'
 import Link from 'next/link'
 import React from 'react'
 
@@ -7,6 +8,13 @@ import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { getSiteSettings } from '@/lib/queries'
 import './styles.css'
+
+const displayFont = Playfair_Display({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['700', '900'],
+  variable: '--font-display-family',
+  display: 'swap',
+})
 
 const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
@@ -35,14 +43,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { isEnabled: isDraft } = await draftMode()
 
   return (
-    <html lang="sl" suppressHydrationWarning>
-      <head>
-        <template
-          dangerouslySetInnerHTML={{
-            __html: `<script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>`,
-          }}
-        />
-      </head>
+    <html lang="sl" className={displayFont.variable}>
       <body className="flex min-h-screen flex-col">
         {isDraft && (
           <div className="bg-accent-700 px-4 py-2 text-center text-sm font-semibold text-white">

@@ -1,8 +1,9 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useState } from 'react'
+
+import { NavLink } from './NavLink'
 
 type NavItem = { label: string; href: string }
 
@@ -25,7 +26,7 @@ export function MobileNav({ items, siteName }: { items: NavItem[]; siteName: str
         aria-controls="mobile-menu"
         aria-label={open ? 'Zapri meni' : 'Odpri meni'}
         onClick={() => setOpen((v) => !v)}
-        className="ml-auto flex h-10 w-10 items-center justify-center rounded-sm text-ink-800 hover:bg-ink-50 dark:text-ink-100 dark:hover:bg-ink-800"
+        className="ml-auto flex h-10 w-10 items-center justify-center text-ink-900 hover:text-accent-700"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           {open ? (
@@ -39,7 +40,7 @@ export function MobileNav({ items, siteName }: { items: NavItem[]; siteName: str
       {open && (
         <div
           id="mobile-menu"
-          className="absolute inset-x-0 top-full border-b border-ink-200 bg-white shadow-lg dark:border-ink-800 dark:bg-ink-900"
+          className="absolute inset-x-0 top-full border-b border-ink-900 bg-paper shadow-lg"
         >
           <nav aria-label={`${siteName} — mobilni meni`} className="mx-auto max-w-6xl px-4 py-3">
             <form action="/search" role="search" className="mb-3">
@@ -48,18 +49,19 @@ export function MobileNav({ items, siteName }: { items: NavItem[]; siteName: str
                 name="q"
                 placeholder="Išči …"
                 aria-label="Iskanje"
-                className="w-full rounded-sm border border-ink-200 bg-white px-3 py-2 text-sm dark:border-ink-600 dark:bg-ink-800"
+                className="w-full border border-ink-200 bg-paper px-3 py-2 text-sm text-ink-900 placeholder:text-ink-400 focus:border-accent-600 focus:outline-none"
               />
             </form>
             <ul className="flex flex-col">
               {items.map((item) => (
                 <li key={item.href}>
-                  <Link
+                  <NavLink
                     href={item.href}
-                    className="block border-b border-ink-100 py-3 font-semibold uppercase tracking-wide text-ink-800 last:border-0 dark:border-ink-800 dark:text-ink-100"
+                    className="block border-b border-ink-100 py-3 text-sm font-bold uppercase tracking-wide text-ink-800 last:border-0"
+                    activeClassName="text-accent-700"
                   >
                     {item.label}
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>

@@ -49,14 +49,15 @@ export default async function AuthorPage({ params, searchParams }: Props) {
             alt={author.name}
             width={80}
             height={80}
-            className="h-20 w-20 rounded-full object-cover"
+            className="h-20 w-20 grayscale"
           />
         )}
         <div>
-          <h1 className="text-3xl font-black tracking-tight">{author.name}</h1>
-          {author.bio && (
-            <p className="mt-1 max-w-2xl font-serif text-ink-600 dark:text-ink-200">{author.bio}</p>
-          )}
+          <p className="text-xs font-bold uppercase tracking-wider text-accent-700">Piše</p>
+          <h1 className="font-display text-3xl font-black tracking-tight text-ink-900">
+            {author.name}
+          </h1>
+          {author.bio && <p className="mt-1 max-w-2xl font-serif text-ink-600">{author.bio}</p>}
         </div>
       </header>
 
@@ -67,7 +68,7 @@ export default async function AuthorPage({ params, searchParams }: Props) {
           ))}
         </div>
       ) : (
-        <p className="text-ink-600 dark:text-ink-200">Ta avtor še nima objavljenih člankov.</p>
+        <p className="text-ink-600">Ta avtor še nima objavljenih člankov.</p>
       )}
 
       <Pagination page={page} totalPages={totalPages} basePath={`/author/${author.id}`} />

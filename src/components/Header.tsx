@@ -5,8 +5,8 @@ import React from 'react'
 import { mediaUrl } from '@/lib/format'
 import { getCategories, getSiteSettings } from '@/lib/queries'
 import { MobileNav } from './MobileNav'
+import { NavLink } from './NavLink'
 import { SearchForm } from './SearchForm'
-import { ThemeToggle } from './ThemeToggle'
 
 export async function Header() {
   const [settings, categories] = await Promise.all([getSiteSettings(), getCategories()])
@@ -18,39 +18,74 @@ export async function Header() {
     href: `/category/${c.slug}`,
   }))
 
+  const dateLine = new Date()
+    .toLocaleDateString('sl-SI', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+    .toUpperCase()
+
+  const biroIdx = siteName.toLowerCase().lastIndexOf('biro')
+  const logoText =
+    biroIdx >= 0 ? (
+      <>
+        {siteName.slice(0, biroIdx)}
+        <span className="text-accent-700">{siteName.slice(biroIdx, biroIdx + 4)}</span>
+        {siteName.slice(biroIdx + 4)}
+      </>
+    ) : (
+      siteName
+    )
+
   return (
-    <header className="sticky top-0 z-40 border-b border-ink-200 bg-white/95 backdrop-blur dark:border-ink-800 dark:bg-ink-900/95">
-      <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
-        <Link href="/" className="flex shrink-0 items-center gap-2" aria-label={siteName}>
-          {logoUrl ? (
-            <Image src={logoUrl} alt={siteName} width={40} height={40} className="h-10 w-auto" />
-          ) : (
-            <span className="text-xl font-black tracking-tight">
-              <span className="text-accent-700 dark:text-accent-100">●</span> {siteName}
-            </span>
+    <header className="border-b border-ink-900 bg-paper">
+      <div className="mx-auto max-w-6xl px-4 pt-6 pb-4 text-center">
+        <Link href="/" className="inline-flex items-center gap-3" aria-label={siteName}>
+          {logoUrl && (
+            <Image src={logoUrl} alt="" width={36} height={36} className="h-9 w-auto shrink-0" />
           )}
+          <span className="font-display text-5xl font-black uppercase tracking-tight text-ink-900 sm:text-6xl md:text-7xl">
+            {logoText}
+          </span>
         </Link>
+        {settings.tagline && (
+          <p className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-ink-600 sm:text-sm">
+            {settings.tagline}
+          </p>
+        )}
+      </div>
 
-        <nav aria-label="Glavna navigacija" className="hidden flex-1 md:block">
-          <ul className="flex items-center gap-1">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="rounded-sm px-3 py-2 text-sm font-semibold uppercase tracking-wide text-ink-600 transition-colors hover:bg-ink-50 hover:text-accent-700 dark:text-ink-200 dark:hover:bg-ink-800 dark:hover:text-accent-100"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      <div className="border-y border-ink-200 py-2 text-center text-xs font-semibold uppercase tracking-widest text-ink-600">
+        {dateLine}
+      </div>
 
-        <div className="ml-auto hidden md:block">
-          <SearchForm compact />
+      <div className="sticky top-0 z-40 border-b border-ink-900 bg-paper/95 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-2.5">
+          <Link
+            href="/"
+            className="font-display text-lg font-bold uppercase tracking-tight text-ink-900 md:hidden"
+          >
+            {siteName}
+          </Link>
+
+          <nav aria-label="Glavna navigacija" className="hidden flex-1 md:block">
+            <ul className="flex flex-wrap items-center gap-1">
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <NavLink
+                    href={item.href}
+                    className="block px-3 py-2 text-sm font-bold uppercase tracking-wide text-ink-800 transition-colors hover:text-accent-700"
+                    activeClassName="text-accent-700"
+                  >
+                    {item.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="ml-auto hidden md:block">
+            <SearchForm compact />
+          </div>
+          <MobileNav items={navItems} siteName={siteName} />
         </div>
-        <ThemeToggle />
-        <MobileNav items={navItems} siteName={siteName} />
       </div>
     </header>
   )

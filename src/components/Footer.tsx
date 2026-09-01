@@ -17,28 +17,30 @@ export async function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-16 border-t-4 border-accent-700 bg-ink-900 text-ink-100">
+    <footer className="mt-16 border-t-4 border-ink-900 bg-paper text-ink-800">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 md:grid-cols-3">
         <div>
-          <p className="text-lg font-black tracking-tight text-white">{siteName}</p>
-          {settings.tagline && <p className="mt-1 text-sm text-ink-200">{settings.tagline}</p>}
+          <p className="font-display text-lg font-bold uppercase tracking-tight text-ink-900">
+            {siteName}
+          </p>
+          {settings.tagline && <p className="mt-1 text-sm text-ink-600">{settings.tagline}</p>}
           {settings.footerText && (
-            <p className="mt-3 whitespace-pre-line text-sm text-ink-400">{settings.footerText}</p>
+            <p className="mt-3 whitespace-pre-line text-sm text-ink-600">{settings.footerText}</p>
           )}
         </div>
 
         <nav aria-label="Strani">
-          <p className="mb-2 text-sm font-bold uppercase tracking-wider text-ink-400">Strani</p>
+          <p className="mb-2 text-sm font-bold uppercase tracking-wider text-ink-900">Strani</p>
           <ul className="space-y-1 text-sm">
             {pages.map((p) => (
               <li key={p.id}>
-                <Link href={`/${p.slug}`} className="hover:text-white hover:underline">
+                <Link href={`/${p.slug}`} className="hover:text-accent-700 hover:underline">
                   {p.title}
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/rss.xml" className="hover:text-white hover:underline">
+              <Link href="/rss.xml" className="hover:text-accent-700 hover:underline">
                 RSS
               </Link>
             </li>
@@ -47,7 +49,7 @@ export async function Footer() {
 
         {(settings.socialLinks?.length ?? 0) > 0 && (
           <nav aria-label="Družbena omrežja">
-            <p className="mb-2 text-sm font-bold uppercase tracking-wider text-ink-400">
+            <p className="mb-2 text-sm font-bold uppercase tracking-wider text-ink-900">
               Spremljajte nas
             </p>
             <ul className="space-y-1 text-sm">
@@ -57,7 +59,7 @@ export async function Footer() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-white hover:underline"
+                    className="hover:text-accent-700 hover:underline"
                   >
                     {platformLabels[link.platform] ?? link.platform}
                   </a>
@@ -67,7 +69,7 @@ export async function Footer() {
           </nav>
         )}
       </div>
-      <div className="border-t border-ink-800 py-4 text-center text-xs text-ink-400">
+      <div className="border-t border-ink-200 py-4 text-center text-xs uppercase tracking-wider text-ink-600">
         © {year} {siteName}. Vse pravice pridržane.
       </div>
     </footer>

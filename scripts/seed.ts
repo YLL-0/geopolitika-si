@@ -77,13 +77,23 @@ async function makeImage(file: string, colors: [string, string]): Promise<string
 // ── seed data ────────────────────────────────────────────────────────────────
 
 const categories = [
-  { name: 'Analize', description: 'Poglobljene analize svetovnih geopolitičnih dogajanj.' },
-  { name: 'Novice', description: 'Aktualne novice iz mednarodne politike.' },
-  { name: 'Intervjuji', description: 'Pogovori s strokovnjaki za mednarodne odnose.' },
-  { name: 'Kolumne', description: 'Mnenja in komentarji naših avtorjev.' },
+  { name: 'Istorija', description: 'Zgodovinski konteksti in dediščina, ki oblikujeta današnjo geopolitiko.' },
+  { name: 'Svet', description: 'Aktualne novice iz mednarodne politike.' },
+  { name: 'Evropa', description: 'Dogajanje v Evropski uniji in na evropski celini.' },
+  { name: 'Varnost', description: 'Obramba, varnostna politika in vojaška vprašanja.' },
+  { name: 'Ekonomija', description: 'Gospodarska in trgovinska geopolitika.' },
+  { name: 'Analiza', description: 'Poglobljene analize svetovnih geopolitičnih dogajanj.' },
 ]
 
-const tags = ['Evropska unija', 'NATO', 'Energetika', 'Zahodni Balkan', 'Indo-Pacifik', 'Varnost']
+const tags = [
+  'Evropska unija',
+  'NATO',
+  'Energetika',
+  'Zahodni Balkan',
+  'Indo-Pacifik',
+  'Varnost',
+  'Hladna vojna',
+]
 
 type SeedArticle = {
   title: string
@@ -101,9 +111,9 @@ const articles: SeedArticle[] = [
     title: 'Evropa med energetsko neodvisnostjo in novimi odvisnostmi',
     excerpt:
       'Prehod na obnovljive vire je Evropo osvobodil dela starih energetskih odvisnosti, a hkrati ustvaril nove — od kritičnih surovin do proizvodnih verig.',
-    category: 'Analize',
+    category: 'Analiza',
     tags: ['Evropska unija', 'Energetika'],
-    featured: true,
+    featured: false,
     daysAgo: 1,
     image: {
       file: 'energetika.jpg',
@@ -137,7 +147,7 @@ const articles: SeedArticle[] = [
     title: 'Vrh zveze NATO prinesel nove zaveze o obrambnih izdatkih',
     excerpt:
       'Članice zavezništva so potrdile zvišanje ciljne ravni obrambnih izdatkov in napovedale okrepitev vzhodnega krila.',
-    category: 'Novice',
+    category: 'Varnost',
     tags: ['NATO', 'Varnost'],
     featured: false,
     daysAgo: 2,
@@ -166,7 +176,7 @@ const articles: SeedArticle[] = [
     title: '»Zahodni Balkan potrebuje verodostojno evropsko perspektivo«',
     excerpt:
       'Pogovor z raziskovalko mednarodnih odnosov o širitvi EU, vplivu tretjih akterjev in prihodnosti regije.',
-    category: 'Intervjuji',
+    category: 'Evropa',
     tags: ['Zahodni Balkan', 'Evropska unija'],
     featured: false,
     daysAgo: 4,
@@ -195,7 +205,7 @@ const articles: SeedArticle[] = [
     title: 'Indo-pacifiška enačba: zakaj bi morala Evropa gledati proti vzhodu',
     excerpt:
       'Težišče svetovne gospodarske in vojaške moči se seli v Indo-Pacifik. Evropa si ne more privoščiti, da bi ostala zgolj opazovalka.',
-    category: 'Kolumne',
+    category: 'Svet',
     tags: ['Indo-Pacifik', 'Varnost'],
     featured: false,
     daysAgo: 6,
@@ -220,14 +230,73 @@ const articles: SeedArticle[] = [
       },
     ],
   },
+  {
+    title: 'Informbiro: kako je resolucija iz leta 1948 prekrojila Evropo',
+    excerpt:
+      'Sedeminsedemdeset let po sporu med Titom in Stalinom ostaja izključitev Jugoslavije iz sovjetskega bloka ključ za razumevanje današnjih delitev na celini.',
+    category: 'Istorija',
+    tags: ['Zahodni Balkan', 'Hladna vojna'],
+    featured: true,
+    daysAgo: 0,
+    image: {
+      file: 'informbiro.jpg',
+      colors: ['#241414', '#5c2a24'],
+      alt: 'Črno-bela ilustracija uličnega panoja z razgrnjenimi časopisi',
+      caption: 'Ilustracija: obdobje razkola. (Vzorčna slika)',
+    },
+    blocks: [
+      {
+        p: [
+          'Informbiro, kratica za Informacijski biro komunističnih in delavskih partij, je bil ustanovljen leta 1947 na pobudo Sovjetske zveze kot orodje za usklajevanje politike komunističnih držav pod vodstvom Moskve. Manj kot leto pozneje je isti organ postal instrument izključitve.',
+          'Resolucija iz junija 1948 je Jugoslavijo potisnila iz sovjetskega bloka in sprožila politično krizo, ki je zaznamovala celo generacijo.',
+        ],
+      },
+      {
+        h: 'Razkol, ki ni bil zgolj ideološki',
+        p: [
+          'V uradnih dokumentih je bil spor predstavljen kot vprašanje ideološke čistosti. V praksi je šlo za vprašanje suverenosti: kdo odloča o gospodarski politiki, o vojski in o zavezništvih majhne komunistične države na robu dveh blokov.',
+          'Ta članek je vzorčna vsebina, ustvarjena ob vzpostavitvi strani, in ne izraža stališč uredništva.',
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Skupni evropski trg pred izzivi širitve na Zahodni Balkan',
+    excerpt:
+      'Gospodarsko približevanje regije evropskemu trgu odpira vprašanja konkurenčnosti, subvencij in prostega pretoka kapitala.',
+    category: 'Ekonomija',
+    tags: ['Evropska unija', 'Zahodni Balkan'],
+    featured: false,
+    daysAgo: 3,
+    image: {
+      file: 'ekonomija.jpg',
+      colors: ['#2b2a10', '#6e6a2c'],
+      alt: 'Abstraktna ilustracija v oljčno zelenih in zlatih tonih',
+      caption: 'Ilustracija: gospodarsko približevanje ima svojo ceno. (Vzorčna slika)',
+    },
+    blocks: [
+      {
+        p: [
+          'Vključevanje gospodarstev Zahodnega Balkana v skupni evropski trg obljublja dostop do enega največjih trgov na svetu, a hkrati zahteva prilagoditev pravil o državni pomoči, konkurenci in prostem pretoku kapitala.',
+        ],
+      },
+      {
+        h: 'Kdo nosi stroške prehoda',
+        p: [
+          'Za manjša gospodarstva prehod pogosto pomeni kratkoročne stroške prestrukturiranja panog, ki dolgoročno niso konkurenčne brez subvencij. Evropska komisija ta tveganja naslavlja prek predpristopnih skladov, a razprava o hitrosti in obsegu podpore ostaja odprta.',
+          'Ta analiza je vzorčna vsebina, ustvarjena ob vzpostavitvi strani.',
+        ],
+      },
+    ],
+  },
 ]
 
 // ── main ─────────────────────────────────────────────────────────────────────
 
 async function seed(payload: Payload): Promise<void> {
-  const existing = await payload.find({ collection: 'categories', limit: 1 })
-  if (existing.totalDocs > 0) {
-    payload.logger.info('Kategorije že obstajajo — seed preskočen. (Za ponoven seed izpraznite bazo.)')
+  const existingArticles = await payload.find({ collection: 'articles', limit: 1 })
+  if (existingArticles.totalDocs > 0) {
+    payload.logger.info('Članki že obstajajo — seed preskočen. (Za ponoven seed izpraznite bazo.)')
     return
   }
 
@@ -237,14 +306,20 @@ async function seed(payload: Payload): Promise<void> {
   payload.logger.info('Ustvarjam kategorije …')
   const categoryDocs: Record<string, number> = {}
   for (const c of categories) {
-    const doc = await payload.create({ collection: 'categories', data: c })
+    const found = await payload.find({
+      collection: 'categories',
+      where: { name: { equals: c.name } },
+      limit: 1,
+    })
+    const doc = found.docs[0] ?? (await payload.create({ collection: 'categories', data: c }))
     categoryDocs[c.name] = doc.id
   }
 
   payload.logger.info('Ustvarjam oznake …')
   const tagDocs: Record<string, number> = {}
   for (const name of tags) {
-    const doc = await payload.create({ collection: 'tags', data: { name } })
+    const found = await payload.find({ collection: 'tags', where: { name: { equals: name } }, limit: 1 })
+    const doc = found.docs[0] ?? (await payload.create({ collection: 'tags', data: { name } }))
     tagDocs[name] = doc.id
   }
 
