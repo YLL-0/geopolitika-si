@@ -18,6 +18,19 @@ const displayFont = Playfair_Display({
 
 const serverURL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
+// favicon.ico is auto-injected by Next regardless of this field, but declaring
+// any `icons` metadata suppresses auto-injection of the other file-convention
+// icons (icon.svg, apple-icon.png) — so they're listed explicitly here too,
+// alongside the extra PWA-style PNG sizes.
+const icons: Metadata['icons'] = {
+  icon: [
+    { url: '/icon.svg', type: 'image/svg+xml' },
+    { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+    { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+  ],
+  apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   try {
     const settings = await getSiteSettings()
@@ -32,9 +45,10 @@ export async function generateMetadata(): Promise<Metadata> {
       alternates: {
         types: { 'application/rss+xml': `${serverURL}/rss.xml` },
       },
+      icons,
     }
   } catch {
-    return { metadataBase: new URL(serverURL), title: 'Informbiro' }
+    return { metadataBase: new URL(serverURL), title: 'Informbiro', icons }
   }
 }
 
